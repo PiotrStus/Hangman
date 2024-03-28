@@ -4,13 +4,15 @@ Hangman is a simple word-guessing game where players try to guess a hidden word 
 
 ## Game Logic
 
-1. The player starts the game by providing a name or phrase to guess.
+1. The player starts the game try to guess a hidden word.
 2. The player has a fixed number of attempts (usually 11) to guess the word.
 3. The player inputs single letters.
 4. If the letter is present in the word, it is displayed in the correct positions.
 5. If the letter is not present in the word, a new part of the hangman is drawn.
 6. The game ends when the player guesses the word or runs out of attempts.
 7. The player has the option to start a new game after finishing the current one.
+
+* Protections in case of typing: the same letter twice, not a letter, more than one letter at the same time, empty char added.
 
 ## Video
 
