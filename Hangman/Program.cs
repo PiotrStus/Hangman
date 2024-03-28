@@ -6,7 +6,7 @@ namespace Hangman
 {
     internal class Program
     {
-        static private string[] hangmanKeys = new string[] { "DEVELOPER", "MICROSOFT", "SKILLS", "JOURNEY" };
+        static private string[] hangmanKeys = new string[] { "DEVELOPER", "MICROSOFT", "SKILLS", "JOURNEY", "CHOROSZCZ" };
         private const int maxAttemptsCounter = 11;
         static private int remainingAttemptsCounter;
         static private char[] word2GuessArray = [];
@@ -28,7 +28,9 @@ namespace Hangman
             }
         }
 
-
+        /// <summary>
+        /// Method responsible for starting a new game of hangman.
+        /// </summary>
         static private void StartNewGame()
         {
             Console.Clear();
@@ -51,6 +53,10 @@ namespace Hangman
             remainingAttemptsCounter = maxAttemptsCounter;
             
         }
+
+        /// <summary>
+        /// Method responsible for choosing a word to play from the hangmanKeys array.
+        /// </summary>
         static private void ChooseWord2Play()
         {
             foreach (string key in hangmanKeys)
@@ -64,6 +70,10 @@ namespace Hangman
             }
             remainingAttemptsCounter = maxAttemptsCounter;
         }
+
+        /// <summary>
+        /// Method responsible for checking if the guessed letter is correct.
+        /// </summary>
         static private void CheckLetter()
         {
             {
@@ -104,6 +114,10 @@ namespace Hangman
                 Console.Clear();
             }
         }
+
+        /// <summary>
+        /// Method responsible for updating the user interface.
+        /// </summary>
         static private void UpdateUI()
         {
             Console.WriteLine(hiddenWord2GuessArray);
@@ -237,15 +251,27 @@ namespace Hangman
                     Console.WriteLine("Game over");
                     break;
             }
-        } 
+        }
+
+        /// <summary>
+        /// Method responsible for checking if the word has been guessed.
+        /// </summary>
         static private bool IsWordGuessed(string word2Guess)
         {
             return (!word2Guess.Contains("_"));
         }
+
+        /// <summary>
+        /// Method responsible for checking if the game has been lost.
+        /// </summary>
         static private bool IsGameLost(int remainingAttemptsCounter)
         {
             return (!(remainingAttemptsCounter != 0));
         }
+
+        /// <summary>
+        /// Method responsible for displaying the end game message.
+        /// </summary>
         static private void EndGameMessage()
         {
             if (gameWon)
@@ -322,6 +348,10 @@ namespace Hangman
 
             
         }
+
+        /// <summary>
+        /// Method responsible for the main game logic loop.
+        /// </summary>
         static private void GameLogic()
         {
             while (!gameLost && !gameWon)
