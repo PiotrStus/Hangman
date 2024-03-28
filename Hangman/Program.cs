@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -16,6 +17,7 @@ namespace Hangman
         static private bool gameWon;
         static private bool gameLost;
         static private bool gameOn = true;
+        static private List<char> typedWords = new List<char> { };
 
         static void Main(string[] args)
         {
@@ -35,6 +37,7 @@ namespace Hangman
         {
             Console.Clear();
             Console.WriteLine("Welcome to the hangman game!");
+            typedWords = [];
             Random random = new Random();
             int randomWordIndex = random.Next(0, hangmanKeys.Length);
             word2Guess = hangmanKeys[randomWordIndex];
@@ -81,16 +84,36 @@ namespace Hangman
                 Console.Write("Guess a letter: ");
                 string? inputString = Console.ReadLine();
 
-                while (string.IsNullOrEmpty(inputString) || !Char.IsLetter(inputString[0]) || inputString.Length > 1)
+                while (string.IsNullOrEmpty(inputString) || (!Char.IsLetter(inputString[0]) || typedWords.Contains(Char.ToUpper(inputString[0])) || inputString.Length > 1))
                 {
-                    Console.Clear();
-                    Console.Write("That's not a letter. Type a letter!: ");
-                    inputString = Console.ReadLine();
+                    if (string.IsNullOrEmpty(inputString))
+                    {
+                        Console.Clear();
+                        Console.Write("Empty field not allowed. Type a letter!: ");
+                        inputString = Console.ReadLine();
+                    }
+                    else if ((!Char.IsLetter(inputString[0]))) {
+                        Console.Clear();
+                        Console.Write("This is not a letter. Type a letter!: ");
+                        inputString = Console.ReadLine();
+                    }
+                    else if (typedWords.Contains(Char.ToUpper(inputString[0])))
+                    {
+                        Console.Clear();
+                        Console.Write($"{Char.ToUpper(inputString[0])} already typed. Type a new letter!: ");
+                        inputString = Console.ReadLine();
+                    }
+                    else if (inputString.Length > 1)
+                    {
+                        Console.Clear();
+                        Console.Write("This is not a single letter. Type a single letter!: ");
+                        inputString = Console.ReadLine();
+                    }
                 }
-
-                char inputChar = inputString[0];
+                
+                char inputChar = inputString[0];     
                 inputChar = Char.ToUpper(inputChar);
-
+                typedWords.Add(inputChar);
                 for (int i = 0; i < word2GuessArray.Length; i++)
                 {
                     if (word2GuessArray[i] == inputChar)
